@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 def solution(keymap, targets):
     key_dic = {}
     for key in keymap:
