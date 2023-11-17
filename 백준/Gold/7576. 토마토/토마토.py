@@ -6,7 +6,6 @@ input = sys.stdin.readline
 n,m = map(int, input().split())
 
 tomato = []
-visited = [[False] * n for _ in range(m)]
 
 # deque에 모든 시작 지점을 넣고 bfs 돌리면 됨.
 queue = deque([])
@@ -27,15 +26,15 @@ def bfs():
     while queue:
         v = queue.popleft()
         x,y = v[0],v[1]
-        visited[x][y] = True
         
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
 
-            if 0<= nx < m and 0<= ny < n and tomato[nx][ny] == 0 and visited[nx][ny] == False:
+            # tomato 0인 것만 하면 이미 상했거나(다른 숫자), -1(막혀있는것)을 제외시킬 수 있음
+            # 이렇게 되면 사실 visited 필요없음
+            if 0<= nx < m and 0<= ny < n and tomato[nx][ny] == 0:
                 queue.append((nx,ny))
-                visited[nx][ny] = True
                 tomato[nx][ny] = tomato[x][y] + 1
 
 # bfs 사용
